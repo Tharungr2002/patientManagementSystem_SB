@@ -1,6 +1,5 @@
-package com.example.patientManagementSystem.Model;
+package com.example.patientServices.Model;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -35,5 +34,5 @@ public class Patient {
     private LocalDate dateOfBirth;
 
     @NotNull
-    private LocalDate regiteredDate;
+    private LocalDate registeredDate;
 }
