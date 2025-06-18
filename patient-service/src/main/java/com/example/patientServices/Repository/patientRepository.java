@@ -9,4 +9,6 @@ import java.util.UUID;
 @Repository
 public interface patientRepository extends JpaRepository<Patient, UUID> {
 
+    boolean existsByEmail(String email);
+
 }
