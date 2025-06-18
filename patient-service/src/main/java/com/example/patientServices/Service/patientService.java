@@ -8,7 +8,9 @@ import com.example.patientServices.mapper.patientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class patientService {
@@ -30,5 +32,18 @@ public class patientService {
         }
         Patient newPatient = patientrepository.save(patientMapper.createPatientMap(patientrequestdto));
         return patientMapper.patientMapping(newPatient);
+    }
+
+    public patientResponseDto updatePatient(UUID id, patientRequestDto patientrequestdto) {
+        Patient patient = patientrepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Id did not found!!"));
+        patient.setName(patientrequestdto.getName());
+        patient.setAddress(patientrequestdto.getAddress());
+        patient.setEmail(patientrequestdto.getEmail());
+        patient.setDateOfBirth(LocalDate.parse(patientrequestdto.getDateOfBirth()));
+        patient.setRegisteredDate(LocalDate.parse(patientrequestdto.getRegisteredDate()));
+
+        Patient updatedPatient = patientrepository.save(patient);
+        return patientMapper.patientMapping(updatedPatient);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("/patients")
 @RestController
@@ -28,6 +29,11 @@ public class patientController {
     public ResponseEntity<patientResponseDto> createPatient(@Valid @RequestBody patientRequestDto patientrequestdto) {
         patientResponseDto patientresponsedto = patientservice.createPatient(patientrequestdto);
         return ResponseEntity.ok().body(patientresponsedto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<patientResponseDto> updatePatient(@PathVariable UUID id, @RequestBody patientRequestDto patientrequestdto) {
+        patientResponseDto patientresponsedto = patientservice.updatePatient(id,patientrequestdto);
     }
 
 
