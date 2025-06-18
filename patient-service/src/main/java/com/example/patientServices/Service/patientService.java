@@ -1,5 +1,7 @@
 package com.example.patientServices.Service;
 
+import com.example.patientServices.Exceptions.emailAlreadyExisting;
+import com.example.patientServices.Exceptions.patientNotAvailable;
 import com.example.patientServices.Model.Patient;
 import com.example.patientServices.Repository.patientRepository;
 import com.example.patientServices.dto.patientRequestDto;
@@ -27,7 +29,7 @@ public class patientService {
 
     public patientResponseDto createPatient(patientRequestDto patientrequestdto) {
         if(patientrepository.existsByEmail(patientrequestdto.getEmail())) {
-            throw new RuntimeException("Email id already exist : " +
+            throw new emailAlreadyExisting("Email id already exist : " +
                     patientrequestdto.getEmail());
         }
         Patient newPatient = patientrepository.save(patientMapper.createPatientMap(patientrequestdto));
@@ -36,7 +38,7 @@ public class patientService {
 
     public patientResponseDto updatePatient(UUID id, patientRequestDto patientrequestdto) {
         Patient patient = patientrepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Id did not found!!"));
+                .orElseThrow(() -> new patientNotAvailable("Id did not found!!"));
         patient.setName(patientrequestdto.getName());
         patient.setAddress(patientrequestdto.getAddress());
         patient.setEmail(patientrequestdto.getEmail());
