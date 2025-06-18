@@ -46,4 +46,8 @@ public class patientService {
         Patient updatedPatient = patientrepository.save(patient);
         return patientMapper.patientMapping(updatedPatient);
     }
+
+    public void deleteByID(UUID id) {
+        patientrepository.deleteById(id);
+    }
 }

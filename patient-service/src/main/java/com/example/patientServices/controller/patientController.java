@@ -4,6 +4,7 @@ import com.example.patientServices.Service.patientService;
 import com.example.patientServices.dto.patientRequestDto;
 import com.example.patientServices.dto.patientResponseDto;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -34,6 +35,13 @@ public class patientController {
     @PutMapping("/{id}")
     public ResponseEntity<patientResponseDto> updatePatient(@PathVariable UUID id, @RequestBody patientRequestDto patientrequestdto) {
         patientResponseDto patientresponsedto = patientservice.updatePatient(id,patientrequestdto);
+        return ResponseEntity.ok().body(patientresponsedto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePatient(@PathVariable UUID id) {
+        patientservice.deleteByID(id);
+        return ResponseEntity.noContent().build();
     }
 
 
